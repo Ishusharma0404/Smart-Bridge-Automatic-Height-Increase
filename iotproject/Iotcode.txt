@@ -1,0 +1,49 @@
+const int sensor=A1; 
+float sm;  
+float vout; 
+#include <Servo.h>
+Servo myservo1;
+Servo myservo2;
+int pos = 0;
+//const int buzzer = 9; //buzzer to arduino pin 9
+
+void setup()
+{
+pinMode(sensor,INPUT); // Configuring pin A1 as input
+//pinMode(buzzer, OUTPUT); // Set buzzer - pin 9 as an output
+Serial.begin(9600);
+myservo1.attach(3);
+myservo2.attach(5);
+
+myservo1.write(0);
+myservo2.write(90);
+
+
+}
+void loop() 
+{
+
+vout=analogRead(sensor);
+vout=(vout*100)/1023;
+sm=vout; // Storing value in Degree Celsius 
+
+if(sm>50)
+ { 
+  
+  //digitalWrite(buzzer, HIGH);
+  myservo1.write(90);
+  myservo2.write(0);
+  delay(500);
+ }
+  
+ else 
+  { 
+  
+  //digitalWrite(buzzer, LOW);
+  myservo1.write(0);
+  myservo2.write(90);
+  delay(500);
+  } 
+
+delay(10); 
+}
